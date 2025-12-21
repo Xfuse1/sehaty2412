@@ -135,33 +135,81 @@ export default function DoctorsDirectoryPage() {
                         </p>
                     </FadeIn>
 
-                    {/* Search & Filter Bar */}
+                    {/* Modern Premium Search & Filter Bar */}
                     <FadeIn delay={0.2}>
-                        <div className="bg-background p-4 rounded-2xl shadow-lg border grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                            <div className="relative md:col-span-7">
-                                <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground h-5 w-5" />
-                                <Input
-                                    className="pr-10 h-12 text-base border-transparent bg-muted/20 focus:bg-background transition-colors"
-                                    placeholder="ابحث بالاسم، التخصص..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                />
-                            </div>
-                            <div className="md:col-span-3">
-                                <Select value={selectedSpecialty} onValueChange={setSelectedSpecialty}>
-                                    <SelectTrigger className="h-12 border-transparent bg-muted/20 focus:bg-background">
-                                        <SelectValue placeholder="التخصص" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="all">جميع التخصصات</SelectItem>
-                                        {specialties.map(s => (
-                                            <SelectItem key={s} value={s}>{s}</SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                            <div className="md:col-span-2">
-                                <Button className="w-full h-12 font-bold text-lg" onClick={() => { }}>بحث</Button>
+                        <div className="relative mt-8">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-3 rounded-2xl shadow-2xl border border-white/20 ring-1 ring-black/5"
+                            >
+                                <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+                                    {/* Name/Keywords Search */}
+                                    <div className="relative md:col-span-5">
+                                        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none">
+                                            <Search className="text-primary h-5 w-5" />
+                                            <div className="w-[1px] h-4 bg-gray-200 dark:bg-gray-700" />
+                                        </div>
+                                        <Input
+                                            className="pr-14 h-14 text-lg border-none shadow-none bg-transparent focus-visible:ring-0 placeholder:text-muted-foreground/60 rounded-xl"
+                                            placeholder="اسم الطبيب أو كلمة مفتاحية..."
+                                            value={searchTerm}
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                        />
+                                    </div>
+
+                                    {/* Specialty Selection */}
+                                    <div className="relative md:col-span-4 border-r border-gray-100 dark:border-gray-800 pr-2">
+                                        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none z-10">
+                                            <Stethoscope className="text-primary/70 h-5 w-5" />
+                                            <div className="w-[1px] h-4 bg-gray-200 dark:bg-gray-700" />
+                                        </div>
+                                        <Select value={selectedSpecialty} onValueChange={setSelectedSpecialty}>
+                                            <SelectTrigger className="h-14 border-none shadow-none bg-transparent focus:ring-0 pr-14 pl-4 text-base rounded-xl">
+                                                <SelectValue placeholder="اختر التخصص" />
+                                            </SelectTrigger>
+                                            <SelectContent className="rounded-xl border-white/20 backdrop-blur-lg">
+                                                <SelectItem value="all" className="rounded-lg">جميع التخصصات</SelectItem>
+                                                {specialties.map(s => (
+                                                    <SelectItem key={s} value={s} className="rounded-lg">{s}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+
+                                    {/* Search Button */}
+                                    <div className="md:col-span-3 px-1">
+                                        <Button
+                                            className="w-full h-12 md:h-12 font-bold text-lg rounded-xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 group transition-all duration-300 overflow-hidden relative"
+                                            onClick={() => { }}
+                                        >
+                                            <motion.span
+                                                className="flex items-center justify-center gap-2 group-hover:scale-105 transition-transform"
+                                            >
+                                                استكشف الآن
+                                                <Search className="h-4 w-4" />
+                                            </motion.span>
+                                            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                                        </Button>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Quick Stats/Badges beneath search */}
+                            <div className="flex flex-wrap justify-center gap-4 mt-6">
+                                <span className="text-sm font-medium text-muted-foreground flex items-center gap-1.5">
+                                    <Star className="h-3.5 w-3.5 text-yellow-500 fill-yellow-500" />
+                                    أفضل التقييمات
+                                </span>
+                                <div className="w-1 h-1 rounded-full bg-gray-300 mt-2" />
+                                <span className="text-sm font-medium text-muted-foreground flex items-center gap-1.5">
+                                    <MapPin className="h-3.5 w-3.5 text-red-500" />
+                                    أقرب العيادات
+                                </span>
+                                <div className="w-1 h-1 rounded-full bg-gray-300 mt-2" />
+                                <span className="text-sm font-medium text-muted-foreground flex items-center gap-1.5 text-primary">
+                                    {filteredDoctors.length} طبيب متاح
+                                </span>
                             </div>
                         </div>
                     </FadeIn>
