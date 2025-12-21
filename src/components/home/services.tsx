@@ -54,7 +54,7 @@ const services = [
   {
     title: "زيارة منزلية",
     description: "طبيبك يجيلك لحد البيت للكشف والتشخيص.",
-    image: "https://images.unsplash.com/photo-1505751172569-b788015383dc?w=800&auto=format&fit=crop&q=60",
+    image: "https://images.unsplash.com/photo-1584515933487-779824d29309?w=1200&auto=format&fit=crop&q=80",
     href: "/home-visit",
     icon: UserPlus,
     color: "bg-orange-100 text-orange-600",
