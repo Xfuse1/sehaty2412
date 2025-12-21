@@ -63,7 +63,7 @@ export default function DoctorsDirectoryPage() {
             q = query(q, limit(ITEMS_PER_PAGE));
 
             const snapshot = await getDocs(q);
-            const fetchedDoctors = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Doctor[];
+            const fetchedDoctors = snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() })) as Doctor[];
 
             if (snapshot.docs.length < ITEMS_PER_PAGE) {
                 setHasMore(false);
