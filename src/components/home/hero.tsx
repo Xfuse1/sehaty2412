@@ -20,8 +20,8 @@ export default function Hero() {
         <section className="relative w-full min-h-[90vh] flex items-center overflow-hidden bg-background pt-16 md:pt-20">
             {/* Dynamic Medical Background Elements */}
             <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
-                <div className="absolute top-[10%] right-[5%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] animate-pulse-subtle" />
-                <div className="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] bg-secondary/20 rounded-full blur-[100px] animate-float-slow" />
+                <div className="absolute top-[10%] right-[10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-primary/10 rounded-full blur-3xl md:blur-[120px] animate-pulse-subtle" />
+                <div className="absolute bottom-[10%] left-[10%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-secondary/10 rounded-full blur-3xl md:blur-[100px] animate-float-slow" />
 
                 {/* SVG Medical Pattern */}
                 <svg className="absolute top-0 right-0 opacity-[0.03] dark:opacity-[0.05]" width="600" height="600" viewBox="0 0 100 100" fill="currentColor">
@@ -39,7 +39,7 @@ export default function Hero() {
                         </div>
                         <h1 className="text-4xl md:text-7xl font-bold font-headline leading-[1.2] tracking-tight">
                             <span className="text-foreground">صحتك هي </span>
-                            <span className="text-transparent bg-clip-text medical-gradient">كنزك الأغلى</span>
+                            <span className="text-medical-gradient">كنزك الأغلى</span>
                             <br />
                             <span className="text-primary">{isLoading ? '...' : (settings.hero?.title || 'نعتني بك أينما كنت')}</span>
                         </h1>
