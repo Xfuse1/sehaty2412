@@ -27,27 +27,27 @@ export default function Cta() {
                   <span>انضم إلينا اليوم</span>
                 </div>
 
-                <h2 className="text-4xl md:text-6xl font-extrabold font-headline text-white leading-[1.3]">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-headline text-white leading-[1.3]">
                   ابدأ رحلتك نحو <br className="md:hidden" />
-                  <span className="bg-white/10 px-4 py-1 rounded-2xl border border-white/20">صحة أفضل</span> اليوم
+                  <span className="bg-white/10 px-4 py-1 rounded-2xl border border-white/20 whitespace-nowrap">صحة أفضل</span> اليوم
                 </h2>
 
-                <p className="mt-6 text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+                <p className="mt-6 text-base sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
                   انضم إلى آلاف العائلات التي تضع ثقتها في فريقنا الطبي المتميز. نحن هنا لنقدم لك الرعاية التي تستحقها بأحدث التقنيات.
                 </p>
               </FadeIn>
 
               <FadeIn delay={0.3}>
-                <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 pt-6">
-                  <Button asChild size="lg" className="bg-white text-[#0ea5e9] hover:bg-slate-50 rounded-2xl px-8 md:px-12 py-7 md:py-8 text-xl font-bold shadow-xl transition-all duration-300 hover:scale-105 active:scale-95">
-                    <Link href="/new-booking" className="flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 md:gap-6 pt-6">
+                  <Button asChild size="lg" className="w-full sm:w-auto bg-white text-[#0ea5e9] hover:bg-slate-50 rounded-2xl px-8 md:px-12 py-6 md:py-8 text-lg md:text-xl font-bold shadow-xl transition-all duration-300 hover:scale-105 active:scale-95">
+                    <Link href="/new-booking" className="flex items-center justify-center gap-3">
                       <CalendarCheck className="w-6 h-6" />
                       <span>احجز استشارتك الآن</span>
                     </Link>
                   </Button>
 
-                  <Button asChild size="lg" variant="outline" className="bg-transparent border-2 border-white/50 text-white hover:bg-white/20 rounded-2xl px-8 md:px-12 py-7 md:py-8 text-xl font-bold backdrop-blur-sm transition-all duration-300">
-                    <Link href="/contact" className="flex items-center gap-3">
+                  <Button asChild size="lg" variant="outline" className="w-full sm:w-auto bg-transparent border-2 border-white/50 text-white hover:bg-white/20 rounded-2xl px-8 md:px-12 py-6 md:py-8 text-lg md:text-xl font-bold backdrop-blur-sm transition-all duration-300">
+                    <Link href="/contact" className="flex items-center justify-center gap-3">
                       <PhoneCall className="w-6 h-6" />
                       <span>تواصل مع الدعم</span>
                     </Link>

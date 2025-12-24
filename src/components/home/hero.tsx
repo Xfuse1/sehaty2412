@@ -37,7 +37,7 @@ export default function Hero() {
                             <span className="flex h-2 w-2 rounded-full bg-secondary animate-pulse" />
                             <span className="text-sm font-medium text-secondary-foreground">رعاية صحية ذكية وموثوقة</span>
                         </div>
-                        <h1 className="text-4xl md:text-7xl font-bold font-headline leading-[1.2] tracking-tight">
+                        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold font-headline leading-[1.2] tracking-tight">
                             <span className="text-foreground">صحتك هي </span>
                             <span className="text-medical-gradient">كنزك الأغلى</span>
                             <br />
@@ -52,14 +52,14 @@ export default function Hero() {
                     </FadeIn>
 
                     <FadeIn delay={0.5} direction="up">
-                        <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 md:gap-6 pt-4">
-                            <Button asChild size="lg" className="medical-gradient rounded-2xl px-8 md:px-10 py-7 md:py-8 text-lg md:text-xl shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-105 transition-all duration-500 group">
+                        <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 md:gap-6 pt-4">
+                            <Button asChild size="lg" className="w-full sm:w-auto medical-gradient rounded-2xl px-8 md:px-10 py-6 md:py-8 text-lg md:text-xl shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-105 transition-all duration-500 group">
                                 <Link href="/#services" className="flex items-center gap-3">
                                     <span>ابدأ الآن</span>
                                     <svg className="w-5 h-5 md:w-6 md:h-6 rotate-180 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                                 </Link>
                             </Button>
-                            <Button asChild size="lg" variant="ghost" className="rounded-2xl px-6 md:px-8 py-7 md:py-8 text-lg md:text-xl hover:bg-muted/50 transition-colors border-2 border-transparent hover:border-border">
+                            <Button asChild size="lg" variant="ghost" className="w-full sm:w-auto rounded-2xl px-6 md:px-8 py-6 md:py-8 text-lg md:text-xl hover:bg-muted/50 transition-colors border-2 border-transparent hover:border-border">
                                 <Link href="/about">اكتشف خدماتنا</Link>
                             </Button>
                         </div>
@@ -120,14 +120,14 @@ export default function Hero() {
                                 initial={{ x: 50, opacity: 0 }}
                                 animate={{ x: 0, opacity: 1 }}
                                 transition={{ delay: 1, duration: 0.8 }}
-                                className="absolute -right-4 md:-right-8 top-[10%] md:top-[15%] glass p-3 md:p-5 rounded-2xl md:rounded-[2rem] z-20 flex items-center gap-3 md:gap-4 animate-float-slow"
+                                className="absolute -right-2 md:-right-8 top-[15%] md:top-[15%] glass p-2 md:p-5 rounded-xl md:rounded-[2rem] z-20 flex items-center gap-2 md:gap-4 animate-float-slow"
                             >
-                                <div className="p-2 md:p-3 bg-secondary/10 rounded-xl md:rounded-2xl text-secondary">
-                                    <svg className="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /></svg>
+                                <div className="p-1.5 md:p-3 bg-secondary/10 rounded-lg md:rounded-2xl text-secondary">
+                                    <svg className="w-4 h-4 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /></svg>
                                 </div>
-                                <div>
-                                    <p className="text-[10px] md:text-xs text-muted-foreground">رعاية قلبية</p>
-                                    <p className="text-sm md:text-lg font-bold">موثوقة 100%</p>
+                                <div className="whitespace-nowrap">
+                                    <p className="text-[8px] md:text-xs text-muted-foreground">رعاية قلبية</p>
+                                    <p className="text-[10px] md:text-lg font-bold">موثوقة 100%</p>
                                 </div>
                             </motion.div>
 
@@ -135,14 +135,14 @@ export default function Hero() {
                                 initial={{ x: -50, opacity: 0 }}
                                 animate={{ x: 0, opacity: 1 }}
                                 transition={{ delay: 1.3, duration: 0.8 }}
-                                className="absolute -left-4 md:-left-12 bottom-[15%] md:bottom-[20%] glass p-3 md:p-5 rounded-2xl md:rounded-[2rem] z-20 flex items-center gap-3 md:gap-4 animate-float"
+                                className="absolute -left-2 md:-left-12 bottom-[20%] md:bottom-[20%] glass p-2 md:p-5 rounded-xl md:rounded-[2rem] z-20 flex items-center gap-2 md:gap-4 animate-float"
                             >
-                                <div className="p-2 md:p-3 bg-primary/10 rounded-xl md:rounded-2xl text-primary">
-                                    <svg className="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
+                                <div className="p-1.5 md:p-3 bg-primary/10 rounded-lg md:rounded-2xl text-primary">
+                                    <svg className="w-4 h-4 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
                                 </div>
-                                <div>
-                                    <p className="text-[10px] md:text-xs text-muted-foreground">معدل الاستجابة</p>
-                                    <p className="text-sm md:text-lg font-bold">فوري وسريع</p>
+                                <div className="whitespace-nowrap">
+                                    <p className="text-[8px] md:text-xs text-muted-foreground">معدل الاستجابة</p>
+                                    <p className="text-[10px] md:text-lg font-bold">فوري وسريع</p>
                                 </div>
                             </motion.div>
                         </div>

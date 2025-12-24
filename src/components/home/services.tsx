@@ -75,10 +75,10 @@ export default function Services() {
               <HeartPulse className="w-4 h-4" />
               <span>رعاية صحية بلا حدود</span>
             </div>
-            <h2 className="text-4xl md:text-6xl font-bold font-headline mb-6 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold font-headline mb-6 tracking-tight">
               خدمات طبية <span className="text-primary italic">بمعايير عالمية</span>
             </h2>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
               نحن هنا لنقدم لك تجربة صحية فريدة تجمع بين الخبرة الطبية العريقة وأحدث التقنيات الرقمية، لتوفير رعاية متكاملة لك ولأحبائك.
             </p>
           </FadeIn>

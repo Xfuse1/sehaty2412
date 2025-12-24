@@ -80,7 +80,7 @@ export default function Header() {
         <Link href="/login">دخول</Link>
       </Button>
       <Button asChild className="medical-gradient rounded-full px-8 shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:scale-105 transition-all">
-        <Link href="/register">حساب جديد</Link>
+        <Link href="/signup">حساب جديد</Link>
       </Button>
     </div>
   );
@@ -180,7 +180,7 @@ export default function Header() {
                         <Link href="/login">تسجيل الدخول</Link>
                       </Button>
                       <Button asChild variant="outline" className="rounded-2xl h-14 text-lg font-bold border-primary/20 text-primary">
-                        <Link href="/register">إنشاء حساب جديد</Link>
+                        <Link href="/signup">إنشاء حساب جديد</Link>
                       </Button>
                     </div>
                   )}

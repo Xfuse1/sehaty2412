@@ -52,24 +52,26 @@ export default function Stats() {
           </FadeIn>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
           {stats.map((stat, index) => (
             <FadeIn key={stat.label} delay={index * 0.1}>
               <div
-                className={`relative group p-10 rounded-[3rem] bg-card border border-border/10 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden text-center`}
+                className={`relative group p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] bg-card border border-border/10 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden text-center`}
               >
                 <div className={`absolute inset-0 bg-gradient-to-b ${stat.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
-                <div className="relative mb-8 inline-flex p-6 rounded-3xl bg-muted/30 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
-                  {stat.icon}
+                <div className="relative mb-6 md:mb-8 inline-flex p-4 md:p-6 rounded-2xl md:rounded-3xl bg-muted/30 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
+                  <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center">
+                    {stat.icon}
+                  </div>
                 </div>
 
-                <p className="relative text-5xl md:text-6xl font-bold font-mono text-foreground tracking-tighter mb-4 group-hover:scale-110 transition-transform duration-500">
+                <p className="relative text-4xl md:text-5xl lg:text-6xl font-bold font-mono text-foreground tracking-tighter mb-2 md:mb-4 group-hover:scale-110 transition-transform duration-500">
                   {stat.value}
                 </p>
                 <div className="relative space-y-1">
-                  <p className="text-xl font-bold text-foreground">{stat.label}</p>
-                  <p className="text-sm text-muted-foreground">{stat.sub}</p>
+                  <p className="text-lg md:text-xl font-bold text-foreground">{stat.label}</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">{stat.sub}</p>
                 </div>
 
                 {/* Decorative border bottom */}
