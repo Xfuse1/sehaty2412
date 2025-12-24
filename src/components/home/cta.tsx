@@ -1,59 +1,71 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { FadeIn } from '@/components/animations/fade-in';
-import { Rocket, CalendarCheck, PhoneCall } from 'lucide-react';
+import { Rocket, CalendarCheck, PhoneCall, Sparkles } from 'lucide-react';
 
 export default function Cta() {
   return (
-    <section className="py-24 relative overflow-hidden">
-      {/* Immersive Background */}
-      <div className="absolute inset-0 medical-gradient opacity-90" />
-      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
-
-      {/* Decorative Circles */}
-      <div className="absolute -top-24 -left-24 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-black/10 rounded-full blur-3xl animate-float-slow" />
+    <section className="py-24 relative overflow-hidden bg-background">
+      {/* Dynamic Background Elements */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#0ea5e9]/5 rounded-[100%] blur-[120px]" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#14b8a6]/10 rounded-full blur-[100px] animate-pulse-subtle" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#0ea5e9]/10 rounded-full blur-[100px] animate-float" />
+      </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto glass p-12 md:p-20 rounded-[4rem] border-white/30 shadow-[0_40px_100px_rgba(0,0,0,0.2)] text-center space-y-10 group">
-          <FadeIn>
-            <div className="inline-flex p-5 rounded-[2rem] bg-white/20 mb-6 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500">
-              <Rocket className="w-12 h-12 text-white" />
-            </div>
-            <h2 className="text-4xl md:text-7xl font-bold font-headline text-white leading-tight">
-              ابدأ رحلتك نحو <span className="underline decoration-secondary decoration-wavy underline-offset-8">صحة أفضل</span> اليوم
-            </h2>
-            <p className="mt-8 text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-              انضم إلى آلاف العائلات التي تضع ثقتها فينا. فريقنا الطبي المتميز بانتظارك لتقديم الرعاية التي تليق بك.
-            </p>
-          </FadeIn>
+        <div className="max-w-5xl mx-auto">
+          <div className="glass rounded-[3rem] p-8 md:p-16 overflow-hidden relative border-white/40 shadow-2xl">
+            {/* Inner background pattern */}
+            <div className="absolute inset-0 bg-[#0ea5e9] opacity-[0.85] z-0" />
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 z-[1]" />
 
-          <FadeIn delay={0.2}>
-            <div className="mt-12 flex flex-wrap justify-center gap-6">
-              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 rounded-[2rem] px-12 py-10 text-2xl font-bold shadow-2xl hover:scale-105 transition-all duration-300">
-                <Link href="/new-booking" className="flex items-center gap-4">
-                  <CalendarCheck className="w-8 h-8" />
-                  <span>احجز استشارتك الآن</span>
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-white/50 text-white hover:bg-white/10 rounded-[2rem] px-12 py-10 text-2xl font-bold backdrop-blur-sm transition-all duration-300">
-                <Link href="/contact" className="flex items-center gap-4">
-                  <PhoneCall className="w-8 h-8" />
-                  <span>تواصل مع الدعم</span>
-                </Link>
-              </Button>
-            </div>
-          </FadeIn>
-
-          <div className="pt-10 flex items-center justify-center gap-3 text-white/70">
-            <div className="flex -space-x-2 space-x-reverse">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="w-8 h-8 rounded-full border-2 border-white/20 bg-white/10 overflow-hidden">
-                  <img src={`https://i.pravatar.cc/100?u=${i}`} alt="user" />
+            <div className="relative z-10 text-center space-y-8">
+              <FadeIn delay={0.1}>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-sm font-medium mb-4">
+                  <Sparkles className="w-4 h-4" />
+                  <span>انضم إلينا اليوم</span>
                 </div>
-              ))}
+
+                <h2 className="text-4xl md:text-6xl font-extrabold font-headline text-white leading-[1.3]">
+                  ابدأ رحلتك نحو <br className="md:hidden" />
+                  <span className="bg-white/10 px-4 py-1 rounded-2xl border border-white/20">صحة أفضل</span> اليوم
+                </h2>
+
+                <p className="mt-6 text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+                  انضم إلى آلاف العائلات التي تضع ثقتها في فريقنا الطبي المتميز. نحن هنا لنقدم لك الرعاية التي تستحقها بأحدث التقنيات.
+                </p>
+              </FadeIn>
+
+              <FadeIn delay={0.3}>
+                <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 pt-6">
+                  <Button asChild size="lg" className="bg-white text-[#0ea5e9] hover:bg-slate-50 rounded-2xl px-8 md:px-12 py-7 md:py-8 text-xl font-bold shadow-xl transition-all duration-300 hover:scale-105 active:scale-95">
+                    <Link href="/new-booking" className="flex items-center gap-3">
+                      <CalendarCheck className="w-6 h-6" />
+                      <span>احجز استشارتك الآن</span>
+                    </Link>
+                  </Button>
+
+                  <Button asChild size="lg" variant="outline" className="bg-transparent border-2 border-white/50 text-white hover:bg-white/20 rounded-2xl px-8 md:px-12 py-7 md:py-8 text-xl font-bold backdrop-blur-sm transition-all duration-300">
+                    <Link href="/contact" className="flex items-center gap-3">
+                      <PhoneCall className="w-6 h-6" />
+                      <span>تواصل مع الدعم</span>
+                    </Link>
+                  </Button>
+                </div>
+              </FadeIn>
+
+              <div className="pt-10 flex flex-col md:flex-row items-center justify-center gap-4 text-white/80 border-t border-white/10 mt-12">
+                <div className="flex -space-x-3 space-x-reverse">
+                  {[1, 2, 3, 4].map(i => (
+                    <div key={i} className="w-10 h-10 rounded-full border-2 border-white/30 bg-white/10 overflow-hidden shadow-inner">
+                      <img src={`https://i.pravatar.cc/100?u=medical${i}`} alt="user" />
+                    </div>
+                  ))}
+                </div>
+                <p className="text-sm md:text-base font-medium">نحن نخدم أكثر من <span className="text-white font-bold">10,000</span> عميل راضٍ عن خدماتنا</p>
+              </div>
             </div>
-            <p className="text-sm font-medium">انضم إلى أكثر من 10,000 عميل يثقون في خدماتنا</p>
           </div>
         </div>
       </div>
