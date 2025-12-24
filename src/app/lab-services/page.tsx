@@ -219,13 +219,17 @@ export default function LabServicesPage() {
                             testDescription: testDescription.trim() || 'No description provided'
                           });
 
-                          // If we have an image, save to Airtable as well
+                          // If we have an image, save to Airtable as well (Non-blocking)
                           if (uploadedImageUrl) {
-                            await savePatientPrescription(
-                              user.uid,
-                              userName,
-                              uploadedImageUrl
-                            );
+                            try {
+                              await savePatientPrescription(
+                                user.uid,
+                                userName,
+                                uploadedImageUrl
+                              );
+                            } catch (error) {
+                              console.warn('Airtable save failed, but proceeding:', error);
+                            }
                           }
                         }
 

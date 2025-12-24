@@ -48,12 +48,17 @@ export default function PharmacyPage() {
       // Upload to Cloudinary
       const imageUrl = await uploadToCloudinary(file);
 
-      // Save to Airtable
-      await savePrescriptionToAirtable(
-        user.uid,
-        user.displayName || 'Unknown User',
-        imageUrl
-      );
+      // Save to Airtable (Non-blocking)
+      try {
+        await savePrescriptionToAirtable(
+          user.uid,
+          user.displayName || 'Unknown User',
+          imageUrl
+        );
+      } catch (airtableError) {
+        console.warn("Airtable integration failed, but proceeding with Firebase:", airtableError);
+        // We don't throw here to allow the main flow to continue
+      }
 
       // Save to Firestore for real-time updates
       await addDoc(collection(db, "prescriptions"), {
@@ -68,18 +73,23 @@ export default function PharmacyPage() {
 
       toast({
         title: "تم الرفع بنجاح",
-        description: "تم استلام الروشتة وحفظها في قاعدة البيانات بنجاح.",
+        description: "تم استلام الروشتة وحفظها في قاعدة البيانات. جارٍ توجيهك للواتساب...",
       });
 
       setPrescriptionText("");
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
+
+      // Automatically redirect to WhatsApp for the best UX
+      const whatsappMsg = `مرحباً، لقد قمت برفع روشتة طبية عبر الموقع باسم ${user.displayName || 'مريض'}. ${prescriptionText ? `ملاحظات: ${prescriptionText}` : ''}`;
+      window.open(`${whatsappLink}?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
+
     } catch (error: any) {
       console.error("Error uploading prescription:", error);
       toast({
-        title: "فشل في رفع الروشتة",
-        description: error.message || "حدث خطأ غير متوقع أثناء محاولة رفع الملف. يرجى التأكد من اتصال الإنترنت والمحاولة مرة أخرى.",
+        title: "خطأ في الرفع",
+        description: error.message || "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
         variant: "destructive",
       });
     } finally {

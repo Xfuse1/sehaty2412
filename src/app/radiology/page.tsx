@@ -91,12 +91,16 @@ export default function RadiologyPage() {
           return;
         }
 
-        // Save to Airtable Patients Images
-        await savePatientPrescription(
-          user.uid,
-          user.displayName || 'Unknown',
-          imageUrl
-        );
+        // Save to Airtable Patients Images (Non-blocking)
+        try {
+          await savePatientPrescription(
+            user.uid,
+            user.displayName || 'Unknown',
+            imageUrl
+          );
+        } catch (error) {
+          console.warn('Airtable save failed, but proceeding:', error);
+        }
 
         toast({
           title: "تم رفع الملف بنجاح",

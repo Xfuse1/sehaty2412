@@ -86,12 +86,16 @@ function PhysiotherapyBookingFlow() {
                     return;
                 }
 
-                // Save to Airtable Patients Images
-                await savePatientPrescription(
-                    user.uid,
-                    patientDetails.name,
-                    imageUrl
-                );
+                // Save to Airtable Patients Images (Non-blocking)
+                try {
+                    await savePatientPrescription(
+                        user.uid,
+                        patientDetails.name,
+                        imageUrl
+                    );
+                } catch (error) {
+                    console.warn('Airtable save failed, but proceeding:', error);
+                }
 
                 toast({
                     title: "تم رفع الملف بنجاح",

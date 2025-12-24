@@ -8,11 +8,11 @@ import { Loader2, Star, MapPin, BriefcaseMedical, CalendarClock, GraduationCap }
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select"
 import { Badge } from '@/components/ui/badge';
 import { initialSpecializedClinics } from '@/lib/site-content-data';
@@ -38,6 +38,7 @@ export default function SpecializedClinicsPage() {
 
     const { data: doctors, isLoading: doctorsLoading, error: doctorsError } = useCollection<any>(doctorsQuery);
     const [selectedSpecialty, setSelectedSpecialty] = useState('all');
+    const [selectedSort, setSelectedSort] = useState('all');
 
     const handleBooking = (doctor: any) => {
         if (!user) {
@@ -53,22 +54,30 @@ export default function SpecializedClinicsPage() {
         }
     };
 
-    // Filter doctors by selected specialty when applicable
-    const filteredDoctors = (doctors || []).filter((d: any) => {
-        if (selectedSpecialty === 'all') return true;
-        // Try multiple matches: doctor's specialtyId, doctor's specialty name (localized), or name includes clinic name
-        const clinic = initialSpecializedClinics.find(c => c.id === selectedSpecialty);
-        const clinicName = clinic?.name || '';
-        const docSpecialtyId = (d.specialtyId || '').toString();
-        const docSpecialtyName = (d.specialty || '').toString();
+    // Filter and Sort doctors
+    const filteredAndSortedDoctors = (doctors || [])
+        .filter((d: any) => {
+            if (selectedSpecialty === 'all') return true;
+            const clinic = initialSpecializedClinics.find(c => c.id === selectedSpecialty);
+            const clinicName = clinic?.name || '';
+            const docSpecialtyId = (d.specialtyId || '').toString();
+            const docSpecialtyName = (d.specialty || '').toString();
 
-        const selected = String(selectedSpecialty).toLowerCase();
-        return (
-            docSpecialtyId.toLowerCase() === selected
-            || docSpecialtyName.toLowerCase().includes(selected)
-            || (clinicName && docSpecialtyName.toLowerCase().includes(clinicName.toLowerCase()))
-        );
-    });
+            const selected = String(selectedSpecialty).toLowerCase();
+            return (
+                docSpecialtyId.toLowerCase() === selected
+                || docSpecialtyName.toLowerCase().includes(selected)
+                || (clinicName && docSpecialtyName.toLowerCase().includes(clinicName.toLowerCase()))
+            );
+        })
+        .sort((a: any, b: any) => {
+            if (selectedSort === 'highest-rated') return (b.rating || 0) - (a.rating || 0);
+            if (selectedSort === 'lowest-price') return (a.price || 0) - (b.price || 0);
+            if (selectedSort === 'highest-price') return (b.price || 0) - (a.price || 0);
+            return 0;
+        });
+
+    const filteredDoctors = filteredAndSortedDoctors;
 
     return (
         <div className="bg-muted/30">
@@ -76,39 +85,39 @@ export default function SpecializedClinicsPage() {
                 <h2 className="text-3xl font-bold text-foreground mb-4">اختر التخصص المناسب لحالتك الصحية</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 mt-8">
                     {initialSpecializedClinics.map(clinic => (
-                        <Card 
-                            key={clinic.id} 
+                        <Card
+                            key={clinic.id}
                             className={`text-center p-4 rounded-xl cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-card ${selectedSpecialty === clinic.id ? 'ring-2 ring-primary/40' : ''}`}
                             onClick={() => setSelectedSpecialty(clinic.id)}
                         >
                             <div className="flex justify-center items-center h-12" dangerouslySetInnerHTML={{ __html: clinic.icon }} />
                             <p className="font-semibold mt-2 text-sm">{clinic.name}</p>
-                           
+
                         </Card>
                     ))}
                 </div>
             </header>
 
             <main className="container mx-auto pb-16">
-                 <div className="bg-card p-4 rounded-t-xl border-b">
+                <div className="bg-card p-4 rounded-t-xl border-b">
                     <div className="flex justify-between items-center">
-                         <h2 className="text-xl font-bold text-primary">الأطباء المتاحون</h2>
-                                 <div className="flex items-center gap-4">
-                                    <p className="text-sm text-muted-foreground">تم العثور على {(filteredDoctors?.length ?? 0)} طبيب</p>
-                             <Select value={selectedSpecialty} onValueChange={(v) => setSelectedSpecialty(v)}>
+                        <h2 className="text-xl font-bold text-primary">الأطباء المتاحون</h2>
+                        <div className="flex items-center gap-4">
+                            <p className="text-sm text-muted-foreground">تم العثور على {(filteredDoctors?.length ?? 0)} طبيب</p>
+                            <Select value={selectedSort} onValueChange={(v) => setSelectedSort(v)}>
                                 <SelectTrigger className="w-[180px]">
                                     <SelectValue placeholder="ترتيب حسب" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="all">الكل</SelectItem>
+                                    <SelectItem value="all">التلقائي</SelectItem>
                                     <SelectItem value="highest-rated">الأعلى تقييماً</SelectItem>
                                     <SelectItem value="lowest-price">الأقل سعراً</SelectItem>
                                     <SelectItem value="highest-price">الأعلى سعراً</SelectItem>
                                 </SelectContent>
                             </Select>
-                         </div>
+                        </div>
                     </div>
-                 </div>
+                </div>
                 {doctorsLoading ? (
                     <div className="flex justify-center items-center h-64">
                         <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -119,25 +128,25 @@ export default function SpecializedClinicsPage() {
                             <Card key={doctor.id} className="grid grid-cols-12 gap-4 p-4 items-center">
                                 {/* Doctor Info */}
                                 <div className="col-span-12 md:col-span-5 flex items-start gap-4">
-                                     <Image src={doctor.image} alt={doctor.name} width={80} height={80} className="rounded-full border-2 border-primary/20" data-ai-hint="doctor portrait" />
-                                     <div>
-                                         <div className="flex items-center gap-2">
+                                    <Image src={doctor.image} alt={doctor.name} width={80} height={80} className="rounded-full border-2 border-primary/20" data-ai-hint="doctor portrait" />
+                                    <div>
+                                        <div className="flex items-center gap-2">
                                             <h3 className="font-bold text-lg">{doctor.name}</h3>
                                             {doctor.available && <Badge variant="default" className="bg-green-500 hover:bg-green-600">متاح</Badge>}
-                                         </div>
-                                         <p className="text-sm text-muted-foreground">{doctor.specialty}</p>
-                                         <div className="flex items-center gap-4 mt-1 text-sm">
-                                             <div className="flex items-center gap-1 text-amber-500">
-                                                <Star className="w-4 h-4 fill-current"/>
+                                        </div>
+                                        <p className="text-sm text-muted-foreground">{doctor.specialty}</p>
+                                        <div className="flex items-center gap-4 mt-1 text-sm">
+                                            <div className="flex items-center gap-1 text-amber-500">
+                                                <Star className="w-4 h-4 fill-current" />
                                                 <span className="font-semibold">{doctor.rating}</span>
                                                 <span className="text-xs text-muted-foreground">({doctor.reviews} تقييم)</span>
-                                             </div>
-                                              <div className="flex items-center gap-1">
+                                            </div>
+                                            <div className="flex items-center gap-1">
                                                 <BriefcaseMedical className="w-4 h-4 text-muted-foreground" />
                                                 <span className="text-xs">{doctor.experience} سنة خبرة</span>
-                                              </div>
-                                         </div>
-                                     </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 {/* Certifications */}
                                 <div className="col-span-12 md:col-span-3 space-y-2 text-sm">
@@ -147,13 +156,13 @@ export default function SpecializedClinicsPage() {
                                             <span>{cert}</span>
                                         </div>
                                     ))}
-                                                <div className="flex items-center gap-2">
-                                                    <MapPin className="w-4 h-4 text-primary/70" />
-                                                    <span>{doctor.location}{doctor.address ? ` — ${doctor.address}` : ''}</span>
-                                                </div>
                                     <div className="flex items-center gap-2">
-                                       <CalendarClock className="w-4 h-4 text-primary/70" />
-                                       <span>أقرب موعد: {doctor.nextAvailable}</span>
+                                        <MapPin className="w-4 h-4 text-primary/70" />
+                                        <span>{doctor.location}{doctor.address ? ` — ${doctor.address}` : ''}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <CalendarClock className="w-4 h-4 text-primary/70" />
+                                        <span>أقرب موعد: {doctor.nextAvailable}</span>
                                     </div>
                                 </div>
 
@@ -170,7 +179,7 @@ export default function SpecializedClinicsPage() {
                                 </div>
                             </Card>
                         ))}
-                         <Button variant="outline" className="w-full mt-4">عرض المزيد من الأطباء</Button>
+                        <Button variant="outline" className="w-full mt-4">عرض المزيد من الأطباء</Button>
                     </div>
                 ) : (
                     <div className="text-center py-16 text-muted-foreground bg-card rounded-b-xl">

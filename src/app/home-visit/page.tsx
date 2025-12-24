@@ -101,7 +101,7 @@ export default function HomeVisitPage() {
         const encodedMessage = encodeURIComponent(message.trim());
         const finalWhatsappUrl = `${whatsappLink}?text=${encodedMessage}`;
 
-        //-- window.location.href = finalWhatsappUrl;
+        window.open(finalWhatsappUrl, '_blank');
 
         setTimeout(() => {
             setIsBooking(false);
