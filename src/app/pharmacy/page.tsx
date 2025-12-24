@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Search, Camera, Bot, Star } from "lucide-react";
+import { Search, Camera, Bot, Star, Loader2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
@@ -67,19 +67,19 @@ export default function PharmacyPage() {
       });
 
       toast({
-        title: "Success",
-        description: "Prescription uploaded successfully",
+        title: "تم الرفع بنجاح",
+        description: "تم استلام الروشتة وحفظها في قاعدة البيانات بنجاح.",
       });
 
       setPrescriptionText("");
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error uploading prescription:", error);
       toast({
-        title: "Error",
-        description: "Failed to upload prescription",
+        title: "فشل في رفع الروشتة",
+        description: error.message || "حدث خطأ غير متوقع أثناء محاولة رفع الملف. يرجى التأكد من اتصال الإنترنت والمحاولة مرة أخرى.",
         variant: "destructive",
       });
     } finally {
@@ -120,63 +120,67 @@ export default function PharmacyPage() {
       <main className="container mx-auto px-4 py-16 md:py-24 space-y-20">
 
         <section>
-          <Card className="w-full max-w-4xl mx-auto overflow-hidden shadow-lg border-primary/20">
-            <CardHeader className="bg-primary/10 p-6">
-              <CardTitle className="text-2xl text-primary font-headline text-center">هل لديك روشتة؟ اطلبها فوراً</CardTitle>
-              <CardDescription className="text-center text-muted-foreground">
+          <Card className="w-full max-w-4xl mx-auto overflow-hidden shadow-xl border-primary/20 rounded-[2.5rem]">
+            <CardHeader className="bg-primary/5 p-8 border-b border-primary/10">
+              <CardTitle className="text-3xl text-primary font-headline text-center">هل لديك روشتة؟ اطلبها فوراً</CardTitle>
+              <CardDescription className="text-center text-lg mt-2">
                 صوّر الروشتة أو اكتب طلبك، وسنتواصل معك عبر واتساب للتوصيل.
               </CardDescription>
             </CardHeader>
-            <CardContent className="p-6 md:p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <CardContent className="p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
                 <div className="space-y-4">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileUpload}
-                    ref={fileInputRef}
-                    className="hidden"
-                    id="prescription-upload"
-                  />
-                  <Button
-                    onClick={() => fileInputRef.current?.click()}
-                    variant="outline"
-                    className="w-full h-32 flex flex-col items-center justify-center gap-2"
-                    disabled={isUploading || !user}
-                  >
-                    <Camera className="w-8 h-8" />
-                    <span>{isUploading ? "جاري التحميل..." : "اضغط لتحميل صورة الروشتة"}</span>
-                  </Button>
+                  <div className="relative group">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                      ref={fileInputRef}
+                      className="hidden"
+                      id="prescription-upload"
+                    />
+                    <Button
+                      onClick={() => fileInputRef.current?.click()}
+                      variant="outline"
+                      className="w-full h-56 flex flex-col items-center justify-center gap-4 rounded-[2.5rem] border-dashed border-2 border-primary/20 group-hover:border-primary/50 transition-all bg-primary/5 hover:bg-white hover:shadow-xl group"
+                      disabled={isUploading || !user}
+                    >
+                      {isUploading ? (
+                        <Loader2 className="w-10 h-10 animate-spin text-primary" />
+                      ) : (
+                        <Camera className="w-10 h-10 text-primary" />
+                      )}
+                      <span className="text-lg font-medium">{isUploading ? "جاري التحميل..." : "اضغط لتحميل أو تصوير الروشتة"}</span>
+                    </Button>
+                  </div>
                   {!user && (
-                    <div className="text-sm text-muted-foreground text-center">
-                      يرجى <Link href="/login" className="text-primary hover:underline">تسجيل الدخول</Link> لتتمكن من تحميل الروشتة
+                    <div className="text-sm text-muted-foreground text-center bg-muted/50 p-3 rounded-xl border border-dashed">
+                      يرجى <Link href="/login" className="text-primary font-bold hover:underline">تسجيل الدخول</Link> لتتمكن من تحميل الروشتة
                     </div>
                   )}
                 </div>
-                <div className="space-y-4">
-                  <Textarea
-                    placeholder="أضف أي ملاحظات إضافية هنا..."
-                    value={prescriptionText}
-                    onChange={(e) => setPrescriptionText(e.target.value)}
-                    className="min-h-[128px] resize-none"
-                    disabled={isUploading || !user}
-                  />
-                </div>
-                <div className="flex flex-col gap-4">
-                  <Button variant="outline" className="h-24 flex-col gap-2 text-lg">
-                    <Camera className="h-8 w-8" />
-                    <span>صوّر الروشتة</span>
-                  </Button>
-                  <Textarea placeholder="أو اكتب اسم الدواء والكمية المطلوبة هنا..." className="min-h-[108px] text-base" />
-                </div>
-                <div className="flex flex-col items-center justify-center text-center gap-4">
-                  <p className="text-muted-foreground">اضغط إرسال وسيتم تحويلك إلى واتساب مباشرةً لاستكمال طلبك مع الصيدلي.</p>
-                  <Button asChild size="lg" className="w-full text-lg">
-                    <Link href={`${whatsappLink}?text=${encodeURIComponent("أرغب في طلب روشتة")}`} target="_blank">
-                      <Bot className="ml-2 h-6 w-6" />
-                      إرسال الطلب الآن
-                    </Link>
-                  </Button>
+
+                <div className="space-y-6 flex flex-col h-full">
+                  <div className="space-y-2 flex-grow">
+                    <label className="text-sm font-bold text-muted-foreground pr-2">وصف إضافي (اختياري)</label>
+                    <Textarea
+                      placeholder="أو اكتب اسم الدواء والكمية المطلوبة هنا..."
+                      value={prescriptionText}
+                      onChange={(e) => setPrescriptionText(e.target.value)}
+                      className="min-h-[160px] rounded-2xl resize-none text-right bg-muted/30 focus:bg-background"
+                      disabled={isUploading || !user}
+                    />
+                  </div>
+
+                  <div className="space-y-4 pt-2">
+                    <p className="text-xs text-muted-foreground text-center">بمجرد التحميل، سيتم حفظ طلبك وسيتاح للصيدلي مراجعته.</p>
+                    <Button asChild size="lg" className="w-full text-xl h-16 rounded-[1.5rem] medical-gradient shadow-lg">
+                      <Link href={`${whatsappLink}?text=${encodeURIComponent(`مرحباً، لدي طلب من الصيدلية: ${prescriptionText}`)}`} target="_blank">
+                        <Bot className="ml-3 h-6 w-6" />
+                        تواصل مع الصيدلي الآن
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -242,6 +246,6 @@ export default function PharmacyPage() {
           </div>
         </section>
       </main>
-    </div>
+    </div >
   );
 }

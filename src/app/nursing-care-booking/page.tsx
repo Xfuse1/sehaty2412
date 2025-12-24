@@ -98,12 +98,12 @@ function NursingCareBookingFlow() {
                     title: "تم رفع الملف بنجاح",
                     description: "تم حفظ الروشتة في قاعدة البيانات"
                 });
-            } catch (error) {
+            } catch (error: any) {
                 console.error('Error uploading file:', error);
                 toast({
                     variant: "destructive",
                     title: "خطأ في رفع الملف",
-                    description: "يرجى المحاولة مرة أخرى"
+                    description: error.message || "يرجى المحاولة مرة أخرى وتأكد من اتصال الإنترنت."
                 });
                 setUploadedImageUrl(null);
             }

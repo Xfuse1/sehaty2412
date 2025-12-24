@@ -107,12 +107,12 @@ export default function RadiologyPage() {
         const message = `أرغب في الاستفسار عن أشعة. قمت برفع الروشتة إلى النظام.`;
         const encodedMessage = encodeURIComponent(message);
         window.open(`${whatsappLink}?text=${encodedMessage}`, '_blank');
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error uploading file:', error);
         toast({
           variant: "destructive",
           title: "خطأ في رفع الملف",
-          description: "يرجى المحاولة مرة أخرى"
+          description: error.message || "يرجى المحاولة مرة أخرى وتأكد من اتصال الإنترنت."
         });
       } finally {
         setIsUploading(false);

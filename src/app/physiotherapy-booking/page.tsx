@@ -97,14 +97,15 @@ function PhysiotherapyBookingFlow() {
                     title: "تم رفع الملف بنجاح",
                     description: "تم حفظ الروشتة في قاعدة البيانات"
                 });
-            } catch (error) {
+            } catch (error: any) {
                 console.error('Error uploading file:', error);
+                setFileName(null);
+                setUploadedImageUrl(null);
                 toast({
                     variant: "destructive",
                     title: "خطأ في رفع الملف",
-                    description: "يرجى المحاولة مرة أخرى",
+                    description: error.message || "حدث خطأ أثناء تحميل الروشتة. يرجى المحاولة مرة أخرى."
                 });
-                setUploadedImageUrl(null);
             }
         }
     };

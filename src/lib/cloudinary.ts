@@ -15,7 +15,9 @@ export const uploadToCloudinary = async (file: File) => {
     );
 
     if (!response.ok) {
-      throw new Error('Failed to upload image');
+      const errorData = await response.json();
+      console.error('Cloudinary Error Detail:', errorData);
+      throw new Error(`تعذر رفع الصورة لـ Cloudinary: ${errorData.error?.message || response.statusText}`);
     }
 
     const data = await response.json();
