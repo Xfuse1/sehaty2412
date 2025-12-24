@@ -1,4 +1,3 @@
-/* Fix Build Trigger - 2025-12-24 15:37 */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -48,7 +47,9 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 199 89% 48%;
   }
+}
 
+@layer base {
   * {
     border-color: hsl(214.3 31.8% 91.4%);
   }
@@ -57,23 +58,6 @@
     background-color: hsl(210 50% 98%);
     color: hsl(222.2 84% 4.9%);
   }
-
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: rgba(210, 40, 96, 0.05);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: rgba(14, 165, 233, 0.3);
-    border-radius: 9999px;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
 }
 
 .glass {
@@ -81,74 +65,29 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 .dark .glass {
   background-color: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(30, 41, 59, 0.2);
-}
-
-.glass-pill {
-  background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.25rem 1rem;
-  border-radius: 9999px;
-}
-
-.dark .glass-pill {
-  background-color: rgba(30, 41, 59, 0.5);
-  border: 1px solid rgba(51, 65, 85, 0.2);
 }
 
 .medical-gradient {
   background: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
 }
 
-.medical-gradient-soft {
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(20, 184, 166, 0.1) 100%);
-}
-
 @keyframes float {
 
   0%,
   100% {
-    transform: translateY(0) rotate(0);
+    transform: translateY(0);
   }
 
-  33% {
-    transform: translateY(-15px) rotate(2deg);
-  }
-
-  66% {
-    transform: translateY(5px) rotate(-1deg);
+  50% {
+    transform: translateY(-10px);
   }
 }
 
 .animate-float {
-  animation: float 8s ease-in-out infinite;
-}
-
-.animate-float-slow {
-  animation: float 12s ease-in-out infinite;
-}
-
-.animate-pulse-subtle {
-  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.8;
-    transform: scale(1.02);
-  }
+  animation: float 5s ease-in-out infinite;
 }
