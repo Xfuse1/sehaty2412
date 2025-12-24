@@ -73,7 +73,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex items-center gap-4">
                   <Phone className="h-6 w-6 text-primary" />
-                  <span className="text-muted-foreground" dir="ltr">{isLoading ? '...' : (settings.contact?.phone || '9200-XXXXX')}</span>
+                  <span className="text-muted-foreground" dir="ltr">{isLoading ? '...' : (settings.contact?.phone || '01000476674')}</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <MapPin className="h-6 w-6 text-primary" />

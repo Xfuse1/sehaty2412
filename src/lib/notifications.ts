@@ -1,6 +1,6 @@
 
-import { db } from "@/firebase/config";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, getFirestore } from "firebase/firestore";
+import { initializeFirebase } from "@/firebase";
 
 export type NotificationType = 'info' | 'success' | 'warning' | 'error';
 
@@ -12,7 +12,8 @@ export async function sendNotification(
     link?: string
 ) {
     try {
-        const notificationsRef = collection(db, "users", userId, "notifications");
+        const { firestore } = initializeFirebase();
+        const notificationsRef = collection(firestore, "users", userId, "notifications");
         await addDoc(notificationsRef, {
             title,
             message,

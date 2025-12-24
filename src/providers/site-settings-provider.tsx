@@ -13,8 +13,8 @@ const defaultSettings: SiteSettings = {
         logoUrl: '',
     },
     contact: {
-        whatsapp: '',
-        phone: '',
+        whatsapp: '01000476674',
+        phone: '01000476674',
         email: '',
         facebookUrl: '',
         instagramUrl: '',

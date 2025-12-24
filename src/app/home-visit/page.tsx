@@ -39,14 +39,14 @@ export default function HomeVisitPage() {
         }
     }, [user]);
 
-    const whatsappLink = "https://wa.me/201211886649";
-    const emergencyPhoneNumber = "01212451294";
+    const whatsappLink = "https://wa.me/201000476674";
+    const emergencyPhoneNumber = "01000476674";
 
     const handleConfirmRequest = () => {
         setIsBooking(true);
-        
+
         if (!user) {
-             toast({
+            toast({
                 variant: "destructive",
                 title: "خطأ",
                 description: "يجب تسجيل الدخول أولاً لطلب زيارة.",
@@ -101,7 +101,7 @@ export default function HomeVisitPage() {
         const encodedMessage = encodeURIComponent(message.trim());
         const finalWhatsappUrl = `${whatsappLink}?text=${encodedMessage}`;
 
-       //-- window.location.href = finalWhatsappUrl;
+        //-- window.location.href = finalWhatsappUrl;
 
         setTimeout(() => {
             setIsBooking(false);
@@ -126,7 +126,7 @@ export default function HomeVisitPage() {
 
             <main className="container py-16">
                 <div className="max-w-4xl mx-auto space-y-12">
-                
+
                     <Alert variant="destructive" className="flex flex-col sm:flex-row items-center justify-between p-6 rounded-2xl shadow-lg">
                         <div>
                             <AlertTitle className="text-xl font-bold">حالة طارئة؟</AlertTitle>
@@ -150,50 +150,50 @@ export default function HomeVisitPage() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <Label htmlFor="name">الاسم الكامل</Label>
-                                    <Input id="name" value={patientDetails.name} onChange={(e) => setPatientDetails({...patientDetails, name: e.target.value})} />
+                                    <Input id="name" value={patientDetails.name} onChange={(e) => setPatientDetails({ ...patientDetails, name: e.target.value })} />
                                 </div>
                                 <div>
                                     <Label htmlFor="phone">رقم الموبايل</Label>
-                                    <Input id="phone" value={patientDetails.phone} onChange={(e) => setPatientDetails({...patientDetails, phone: e.target.value})} placeholder="e.g., 05xxxxxxx"/>
+                                    <Input id="phone" value={patientDetails.phone} onChange={(e) => setPatientDetails({ ...patientDetails, phone: e.target.value })} placeholder="e.g., 05xxxxxxx" />
                                 </div>
                                 <div>
                                     <Label htmlFor="age">العمر</Label>
-                                    <Input id="age" type="number" value={patientDetails.age} onChange={(e) => setPatientDetails({...patientDetails, age: e.target.value})} placeholder="أدخل عمرك" />
+                                    <Input id="age" type="number" value={patientDetails.age} onChange={(e) => setPatientDetails({ ...patientDetails, age: e.target.value })} placeholder="أدخل عمرك" />
                                 </div>
                                 <div className="md:col-span-2">
                                     <Label htmlFor="address">العنوان بالكامل</Label>
-                                    <Input id="address" value={patientDetails.address} onChange={(e) => setPatientDetails({...patientDetails, address: e.target.value})} placeholder="المدينة، الحي، الشارع" />
+                                    <Input id="address" value={patientDetails.address} onChange={(e) => setPatientDetails({ ...patientDetails, address: e.target.value })} placeholder="المدينة، الحي، الشارع" />
                                 </div>
                                 <div className="md:col-span-2">
                                     <Label htmlFor="caseDescription">وصف الحالة والأعراض</Label>
-                                    <Textarea id="caseDescription" value={patientDetails.caseDescription} onChange={(e) => setPatientDetails({...patientDetails, caseDescription: e.target.value})} placeholder="صف بإيجاز الأعراض التي تعاني منها، ومتى بدأت..." />
+                                    <Textarea id="caseDescription" value={patientDetails.caseDescription} onChange={(e) => setPatientDetails({ ...patientDetails, caseDescription: e.target.value })} placeholder="صف بإيجاز الأعراض التي تعاني منها، ومتى بدأت..." />
                                 </div>
                             </div>
-                            <Button 
-                                className="w-full" 
+                            <Button
+                                className="w-full"
                                 size="lg"
                                 disabled={!patientDetails.name || !patientDetails.address || !patientDetails.caseDescription || isBooking}
                                 onClick={handleConfirmRequest}
-                           >
+                            >
                                 {isBooking ? <Loader2 className="ml-2 h-5 w-5 animate-spin" /> : <Bot className="ml-2 h-5 w-5" />}
                                 {isBooking ? "جارِ إرسال الطلب..." : "إرسال الطلب عبر واتساب"}
-                           </Button>
+                            </Button>
                         </CardContent>
                     </Card>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center pt-8">
                         <div className="flex flex-col items-center gap-3 p-4">
-                            <Sparkles className="h-10 w-10 text-primary"/>
+                            <Sparkles className="h-10 w-10 text-primary" />
                             <h3 className="font-bold text-lg">خدمة أسهل</h3>
                             <p className="text-muted-foreground text-sm">اطلب طبيبك بضغطة زر وأنت في مكانك.</p>
                         </div>
                         <div className="flex flex-col items-center gap-3 p-4">
-                            <ShieldCheck className="h-10 w-10 text-primary"/>
+                            <ShieldCheck className="h-10 w-10 text-primary" />
                             <h3 className="font-bold text-lg">أطباء محترفون</h3>
                             <p className="text-muted-foreground text-sm">فريق من الأطباء المعتمدين لضمان أفضل رعاية.</p>
                         </div>
                         <div className="flex flex-col items-center gap-3 p-4">
-                            <Clock className="h-10 w-10 text-primary"/>
+                            <Clock className="h-10 w-10 text-primary" />
                             <h3 className="font-bold text-lg">نصلك في الموعد</h3>
                             <p className="text-muted-foreground text-sm">نلتزم بالمواعيد لنوفر وقتك وجهدك.</p>
                         </div>

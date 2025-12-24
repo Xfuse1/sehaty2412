@@ -68,7 +68,7 @@ const surgeries = [
     },
 ];
 
-const whatsappLink = "https://wa.me/201211886649";
+const whatsappLink = "https://wa.me/201000476674";
 
 export default function SurgeryPage() {
 

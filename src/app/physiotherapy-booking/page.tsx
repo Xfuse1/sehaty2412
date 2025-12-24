@@ -38,7 +38,7 @@ function PhysiotherapyBookingFlow() {
     const [fileName, setFileName] = useState<string | null>(null);
     const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
 
-    const whatsappLink = "https://wa.me/201211886649";
+    const whatsappLink = "https://wa.me/201000476674";
 
     useEffect(() => {
         if (!isUserLoading && !user) {
@@ -72,11 +72,11 @@ function PhysiotherapyBookingFlow() {
             try {
                 setFileName(file.name);
                 toast({ title: "جاري رفع الملف", description: "يرجى الانتظار..." });
-                
+
                 // Upload to Cloudinary
                 const imageUrl = await uploadToCloudinary(file);
                 setUploadedImageUrl(imageUrl); // Store the URL in state
-                
+
                 if (!user) {
                     toast({
                         variant: "destructive",
@@ -93,9 +93,9 @@ function PhysiotherapyBookingFlow() {
                     imageUrl
                 );
 
-                toast({ 
-                    title: "تم رفع الملف بنجاح", 
-                    description: "تم حفظ الروشتة في قاعدة البيانات" 
+                toast({
+                    title: "تم رفع الملف بنجاح",
+                    description: "تم حفظ الروشتة في قاعدة البيانات"
                 });
             } catch (error) {
                 console.error('Error uploading file:', error);
@@ -108,10 +108,10 @@ function PhysiotherapyBookingFlow() {
             }
         }
     };
-    
+
     const handleConfirmBooking = async () => {
         setIsBooking(true);
-        
+
         if (!user) {
             toast({
                 variant: "destructive",
@@ -268,10 +268,10 @@ function PhysiotherapyBookingFlow() {
             </div>
         );
     }
-    
+
     return (
         <div className="container py-12">
-             <div className="text-center mb-12">
+            <div className="text-center mb-12">
                 <h1 className="text-4xl font-bold font-headline text-primary">حجز باقة علاج طبيعي</h1>
                 <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
                     أنت على وشك حجز باقة "{pkg.name}". يرجى استكمال البيانات التالية.
@@ -288,23 +288,23 @@ function PhysiotherapyBookingFlow() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="md:col-span-2">
                                     <Label htmlFor="name">الاسم الكامل</Label>
-                                    <Input id="name" value={patientDetails.name} onChange={(e) => setPatientDetails({...patientDetails, name: e.target.value})} />
+                                    <Input id="name" value={patientDetails.name} onChange={(e) => setPatientDetails({ ...patientDetails, name: e.target.value })} />
                                 </div>
                                 <div>
                                     <Label htmlFor="phone">رقم الموبايل</Label>
-                                    <Input id="phone" value={patientDetails.phone} onChange={(e) => setPatientDetails({...patientDetails, phone: e.target.value})} placeholder="e.g., 05xxxxxxx"/>
+                                    <Input id="phone" value={patientDetails.phone} onChange={(e) => setPatientDetails({ ...patientDetails, phone: e.target.value })} placeholder="e.g., 05xxxxxxx" />
                                 </div>
                                 <div>
                                     <Label htmlFor="age">العمر</Label>
-                                    <Input id="age" type="number" value={patientDetails.age} onChange={(e) => setPatientDetails({...patientDetails, age: e.target.value})} placeholder="أدخل عمرك" />
+                                    <Input id="age" type="number" value={patientDetails.age} onChange={(e) => setPatientDetails({ ...patientDetails, age: e.target.value })} placeholder="أدخل عمرك" />
                                 </div>
                                 <div className="md:col-span-2">
                                     <Label htmlFor="address">العنوان بالكامل (لتحديد موعد الزيارة)</Label>
-                                    <Input id="address" value={patientDetails.address} onChange={(e) => setPatientDetails({...patientDetails, address: e.target.value})} placeholder="المدينة، الحي، الشارع" />
+                                    <Input id="address" value={patientDetails.address} onChange={(e) => setPatientDetails({ ...patientDetails, address: e.target.value })} placeholder="المدينة، الحي، الشارع" />
                                 </div>
                                 <div className="md:col-span-2">
                                     <Label htmlFor="caseDescription">وصف الحالة</Label>
-                                    <Textarea id="caseDescription" value={patientDetails.caseDescription} onChange={(e) => setPatientDetails({...patientDetails, caseDescription: e.target.value})} placeholder="صف بإيجاز الحالة الصحية، تاريخ الإصابة، وأي تفاصيل أخرى مهمة..." />
+                                    <Textarea id="caseDescription" value={patientDetails.caseDescription} onChange={(e) => setPatientDetails({ ...patientDetails, caseDescription: e.target.value })} placeholder="صف بإيجاز الحالة الصحية، تاريخ الإصابة، وأي تفاصيل أخرى مهمة..." />
                                 </div>
                             </div>
                         </CardContent>
@@ -313,28 +313,28 @@ function PhysiotherapyBookingFlow() {
                     <Card>
                         <CardHeader>
                             <CardTitle>2. المستندات والروشتات</CardTitle>
-                             <CardDescription>يمكنك إرفاق الروشتات أو التقارير الطبية أو تسجيل رسالة صوتية لشرح الحالة.</CardDescription>
+                            <CardDescription>يمكنك إرفاق الروشتات أو التقارير الطبية أو تسجيل رسالة صوتية لشرح الحالة.</CardDescription>
                         </CardHeader>
                         <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                             <Button variant="outline" className="h-24 flex-col gap-2" onClick={() => fileInputRef.current?.click()}>
+                            <Button variant="outline" className="h-24 flex-col gap-2" onClick={() => fileInputRef.current?.click()}>
                                 <Upload className="h-8 w-8" />
                                 <span>رفع روشتة أو تقرير</span>
-                                <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept="image/*,.pdf"/>
-                             </Button>
-                             {fileName && <p className="text-sm text-muted-foreground md:col-span-3">الملف المختار: {fileName}</p>}
-                             
-                             <Button variant="outline" className="h-24 flex-col gap-2" onClick={() => toast({ title: "قريبا!", description: "ميزة التسجيل الصوتي قيد التطوير." })}>
+                                <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept="image/*,.pdf" />
+                            </Button>
+                            {fileName && <p className="text-sm text-muted-foreground md:col-span-3">الملف المختار: {fileName}</p>}
+
+                            <Button variant="outline" className="h-24 flex-col gap-2" onClick={() => toast({ title: "قريبا!", description: "ميزة التسجيل الصوتي قيد التطوير." })}>
                                 <Mic className="h-8 w-8" />
                                 <span>تسجيل رسالة صوتية</span>
                                 <Badge variant="secondary" className="absolute -top-2 -right-2">قريباً</Badge>
-                             </Button>
+                            </Button>
 
-                             <Button asChild variant="outline" className="h-24 flex-col gap-2 text-green-600 border-green-300 hover:bg-green-50 hover:text-green-700">
+                            <Button asChild variant="outline" className="h-24 flex-col gap-2 text-green-600 border-green-300 hover:bg-green-50 hover:text-green-700">
                                 <Link href={`${whatsappLink}?text=${encodeURIComponent(`أرغب في الاستفسار عن حجز علاج طبيعي.`)}`} target="_blank">
                                     <Bot className="h-8 w-8" />
                                     <span>تواصل مع الصيدلي</span>
                                 </Link>
-                             </Button>
+                            </Button>
                         </CardContent>
                     </Card>
 
@@ -367,23 +367,23 @@ function PhysiotherapyBookingFlow() {
                             <CardDescription>{pkg.duration}</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4 text-sm">
-                           <div className="border-t pt-4">
+                            <div className="border-t pt-4">
                                 <h4 className="font-bold mb-4">ملخص الباقة</h4>
                                 <p className="text-muted-foreground text-xs mb-4">{pkg.description}</p>
                                 <div className="flex justify-between mt-4 pt-4 border-t">
                                     <span className="text-muted-foreground font-bold">سعر الباقة:</span>
                                     <span className="font-bold text-lg text-primary">{pkg.price} ر.س</span>
                                 </div>
-                           </div>
-                           <Button 
-                                className="w-full mt-6" 
+                            </div>
+                            <Button
+                                className="w-full mt-6"
                                 size="lg"
                                 disabled={!patientDetails.name || !patientDetails.address || isBooking}
                                 onClick={handleConfirmBooking}
-                           >
+                            >
                                 {isBooking ? <Loader2 className="ml-2 h-5 w-5 animate-spin" /> : <CalendarIcon className="ml-2 h-5 w-5" />}
                                 {isBooking ? "جارِ إرسال الطلب..." : "إرسال طلب الحجز"}
-                           </Button>
+                            </Button>
                         </CardContent>
                     </Card>
                 </div>

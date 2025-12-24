@@ -30,7 +30,7 @@ export const saveToAirtable = async (doctorId: string, doctorName: string, image
     });
 
     const data = await response.json();
-    
+
     if (!response.ok) {
       console.error('Airtable Error Response:', data);
       throw new Error(`Failed to save to Airtable: ${JSON.stringify(data)}`);
@@ -74,44 +74,7 @@ export const savePrescriptionToAirtable = async (
     });
 
     const data = await response.json();
-    
-    if (!response.ok) {
-      console.error('Airtable Error Response:', data);
-      throw new Error(`Failed to save to Airtable: ${JSON.stringify(data)}`);
-    }
 
-    return data;
-  } catch (error) {
-    console.error('Error saving to Airtable:', error);
-    throw error;
-  }
-  try {
-    const response = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${PATIENTS_TABLE}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        records: [
-          {
-            fields: {
-              'Patient_ID': patientId,
-              'Patient_Name': patientName,
-              'Attachments': [
-                {
-                  url: imageUrl,
-                  filename: `prescription_${patientId}_${Date.now()}.jpg`
-                }
-              ],
-            },
-          },
-        ],
-      }),
-    });
-
-    const data = await response.json();
-    
     if (!response.ok) {
       console.error('Airtable Error Response:', data);
       throw new Error(`Failed to save prescription to Airtable: ${JSON.stringify(data)}`);

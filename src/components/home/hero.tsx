@@ -13,119 +13,139 @@ export default function Hero() {
     const { user } = useUser();
     const { settings, isLoading } = useSiteSettings();
 
+    // The generated image path from the previous step
+    const heroImage = "/medical_hero_doctor_smiling.png";
+
     return (
-        <section className="relative w-full overflow-hidden bg-background">
-            {/* Animated Background Blobs */}
-            <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
-                <motion.div
-                    animate={{
-                        x: [0, 100, 0],
-                        y: [0, -50, 0],
-                        scale: [1, 1.2, 1]
-                    }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl opacity-50"
-                />
-                <motion.div
-                    animate={{
-                        x: [0, -70, 0],
-                        y: [0, 100, 0],
-                        scale: [1, 1.1, 1]
-                    }}
-                    transition={{ duration: 15, repeat: Infinity, ease: "linear", delay: 2 }}
-                    className="absolute top-[40%] -left-[10%] w-[500px] h-[500px] bg-secondary/15 rounded-full blur-3xl opacity-40"
-                />
+        <section className="relative w-full min-h-[90vh] flex items-center overflow-hidden bg-background pt-16 md:pt-20">
+            {/* Dynamic Medical Background Elements */}
+            <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+                <div className="absolute top-[10%] right-[5%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] animate-pulse-subtle" />
+                <div className="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] bg-secondary/20 rounded-full blur-[100px] animate-float-slow" />
+
+                {/* SVG Medical Pattern */}
+                <svg className="absolute top-0 right-0 opacity-[0.03] dark:opacity-[0.05]" width="600" height="600" viewBox="0 0 100 100" fill="currentColor">
+                    <circle cx="50" cy="50" r="48" stroke="currentColor" strokeWidth="0.5" fill="none" />
+                    <path d="M50 20V80M20 50H80" stroke="currentColor" strokeWidth="2" />
+                </svg>
             </div>
 
-            <div className="container relative z-10 mx-auto grid md:grid-cols-2 gap-8 items-center py-20 md:py-32">
-                <div className="text-center md:text-right order-2 md:order-1">
+            <div className="container relative z-10 mx-auto px-4 grid md:grid-cols-2 gap-12 items-center py-12 md:py-28">
+                <div className="text-center md:text-right space-y-8 order-2 md:order-1">
                     <FadeIn delay={0.1} direction="up">
-                        <h1 className="text-5xl md:text-7xl font-bold font-headline text-primary leading-tight">
-                            {isLoading ? '...' : settings.hero?.title}
+                        <div className="inline-flex items-center gap-2 glass-pill mb-6">
+                            <span className="flex h-2 w-2 rounded-full bg-secondary animate-pulse" />
+                            <span className="text-sm font-medium text-secondary-foreground">رعاية صحية ذكية وموثوقة</span>
+                        </div>
+                        <h1 className="text-4xl md:text-7xl font-bold font-headline leading-[1.2] tracking-tight">
+                            <span className="text-foreground">صحتك هي </span>
+                            <span className="text-transparent bg-clip-text medical-gradient">كنزك الأغلى</span>
+                            <br />
+                            <span className="text-primary">{isLoading ? '...' : (settings.hero?.title || 'نعتني بك أينما كنت')}</span>
                         </h1>
                     </FadeIn>
 
                     <FadeIn delay={0.3} direction="up">
-                        <p className="mt-6 text-xl md:text-2xl max-w-3xl mx-auto md:mx-0 text-muted-foreground leading-relaxed">
-                            {isLoading ? '...' : settings.hero?.subtitle}
+                        <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl">
+                            {isLoading ? '...' : (settings.hero?.subtitle || 'مجموعة متكاملة من الخدمات الطبية المتميزة، تصلك إلى باب بيتك أو في مراكزنا المتخصصة بأعلى معايير الجودة.')}
                         </p>
                     </FadeIn>
 
                     <FadeIn delay={0.5} direction="up">
-                        <div className="mt-10 flex flex-wrap justify-center md:justify-start gap-4">
-                            <Button asChild size="lg" className="rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-primary/25 transition-all hover:scale-105 duration-300">
-                                <Link href="/#services">
-                                    ابدأ رحلتك
+                        <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 md:gap-6 pt-4">
+                            <Button asChild size="lg" className="medical-gradient rounded-2xl px-8 md:px-10 py-7 md:py-8 text-lg md:text-xl shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-105 transition-all duration-500 group">
+                                <Link href="/#services" className="flex items-center gap-3">
+                                    <span>ابدأ الآن</span>
+                                    <svg className="w-5 h-5 md:w-6 md:h-6 rotate-180 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                                 </Link>
                             </Button>
-                            <Button asChild size="lg" variant="outline" className="rounded-full px-8 py-6 text-lg border-2 hover:bg-secondary/10 hover:text-primary transition-all duration-300">
-                                <Link href="/about">من نحن؟</Link>
+                            <Button asChild size="lg" variant="ghost" className="rounded-2xl px-6 md:px-8 py-7 md:py-8 text-lg md:text-xl hover:bg-muted/50 transition-colors border-2 border-transparent hover:border-border">
+                                <Link href="/about">اكتشف خدماتنا</Link>
                             </Button>
+                        </div>
+                    </FadeIn>
+
+                    {/* Trust Indicators */}
+                    <FadeIn delay={0.7} direction="up">
+                        <div className="flex flex-wrap items-center justify-center md:justify-start gap-6 md:gap-8 pt-6 border-t border-border/50">
+                            <div>
+                                <p className="text-2xl md:text-3xl font-bold text-foreground">+50</p>
+                                <p className="text-xs md:text-sm text-muted-foreground">طبيب مختص</p>
+                            </div>
+                            <div className="hidden sm:block w-px h-10 bg-border/50" />
+                            <div>
+                                <p className="text-2xl md:text-3xl font-bold text-foreground">+10k</p>
+                                <p className="text-xs md:text-sm text-muted-foreground">مريض سعيد</p>
+                            </div>
+                            <div className="hidden sm:block w-px h-10 bg-border/50" />
+                            <div className="flex -space-x-3 space-x-reverse">
+                                {[1, 2, 3, 4].map(i => (
+                                    <div key={i} className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-background bg-muted overflow-hidden">
+                                        <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="avatar" />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </FadeIn>
                 </div>
 
-                <div className="relative h-[400px] md:h-[600px] order-1 md:order-2 flex items-center justify-center">
-                    {/* Decorative Circle behind image */}
+                <div className="relative order-1 md:order-2">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 1, delay: 0.2 }}
-                        className="absolute inset-0 md:inset-x-10 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-full blur-2xl"
-                    />
-
-                    <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="relative w-full h-full"
+                        transition={{ duration: 1.2, ease: "easeOut" }}
+                        className="relative z-10"
                     >
-                        <motion.div
-                            animate={{ y: [0, -15, 0] }}
-                            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                            className="w-full h-full relative"
-                        >
-                            <Image
-                                src={settings.hero?.imageUrl || "https://picsum.photos/seed/hero-doctor/1000/1000"}
-                                alt="طبيبة مبتسمة"
-                                fill
-                                style={{ objectFit: 'contain' }}
-                                className="drop-shadow-2xl z-10"
-                                priority
-                            />
-                        </motion.div>
+                        <div className="relative aspect-square md:aspect-auto md:h-[700px] w-full max-w-2xl mx-auto md:mx-0">
+                            {/* Decorative Elements around image */}
+                            <div className="absolute inset-0 medical-gradient rounded-[3rem] rotate-3 opacity-10 blur-xl" />
+                            <div className="absolute inset-0 border-2 border-primary/20 rounded-[3rem] -rotate-3" />
 
-                        {/* Floating Badges */}
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 1, duration: 0.5 }}
-                            className="absolute top-10 left-0 md:-left-10 bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-xl z-20 flex items-center gap-3 animate-float-slow"
-                        >
-                            <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                            </div>
-                            <div>
-                                <p className="text-xs text-muted-foreground">أطباء معتمدين</p>
-                                <p className="text-sm font-bold">100% موثوق</p>
-                            </div>
-                        </motion.div>
+                            <motion.div
+                                className="relative h-full w-full rounded-[3.5rem] overflow-hidden shadow-2xl z-10 animate-float"
+                                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                <Image
+                                    src={heroImage}
+                                    alt="Medical Specialist"
+                                    fill
+                                    style={{ objectFit: 'cover' }}
+                                    className="scale-105"
+                                    priority
+                                />
+                            </motion.div>
 
-                        <motion.div
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 1.2, duration: 0.5 }}
-                            className="absolute bottom-20 right-0 md:-right-5 bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-xl z-20 flex items-center gap-3"
-                        >
-                            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                            </div>
-                            <div>
-                                <p className="text-xs text-muted-foreground">خدمة 24/7</p>
-                                <p className="text-sm font-bold">رعاية فورية</p>
-                            </div>
-                        </motion.div>
+                            {/* Floating Glass Stats */}
+                            <motion.div
+                                initial={{ x: 50, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ delay: 1, duration: 0.8 }}
+                                className="absolute -right-4 md:-right-8 top-[10%] md:top-[15%] glass p-3 md:p-5 rounded-2xl md:rounded-[2rem] z-20 flex items-center gap-3 md:gap-4 animate-float-slow"
+                            >
+                                <div className="p-2 md:p-3 bg-secondary/10 rounded-xl md:rounded-2xl text-secondary">
+                                    <svg className="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /></svg>
+                                </div>
+                                <div>
+                                    <p className="text-[10px] md:text-xs text-muted-foreground">رعاية قلبية</p>
+                                    <p className="text-sm md:text-lg font-bold">موثوقة 100%</p>
+                                </div>
+                            </motion.div>
 
+                            <motion.div
+                                initial={{ x: -50, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ delay: 1.3, duration: 0.8 }}
+                                className="absolute -left-4 md:-left-12 bottom-[15%] md:bottom-[20%] glass p-3 md:p-5 rounded-2xl md:rounded-[2rem] z-20 flex items-center gap-3 md:gap-4 animate-float"
+                            >
+                                <div className="p-2 md:p-3 bg-primary/10 rounded-xl md:rounded-2xl text-primary">
+                                    <svg className="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
+                                </div>
+                                <div>
+                                    <p className="text-[10px] md:text-xs text-muted-foreground">معدل الاستجابة</p>
+                                    <p className="text-sm md:text-lg font-bold">فوري وسريع</p>
+                                </div>
+                            </motion.div>
+                        </div>
                     </motion.div>
                 </div>
             </div>

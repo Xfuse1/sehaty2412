@@ -63,65 +63,88 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 bg-muted/30">
-      <div className="container mx-auto px-4">
-        <div className="text-center max-w-2xl mx-auto mb-16">
+    <section id="services" className="py-28 bg-muted/40 relative overflow-hidden">
+      {/* Background Bio-Shapes */}
+      <div className="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px]" />
+      <div className="absolute bottom-1/4 -left-20 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[100px]" />
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
           <FadeIn>
-            <Badge variant="outline" className="mb-4 px-4 py-1 text-primary border-primary/20 bg-primary/5">خدماتنا المتميزة</Badge>
-            <h2 className="text-3xl md:text-5xl font-bold font-headline mb-4 text-foreground">
-              كل ما تحتاجه لصحتك في مكان واحد
+            <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full medical-gradient-soft text-primary font-bold text-sm tracking-wide uppercase mb-4 shadow-sm border border-primary/10">
+              <HeartPulse className="w-4 h-4" />
+              <span>رعاية صحية بلا حدود</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-bold font-headline mb-6 tracking-tight">
+              خدمات طبية <span className="text-primary italic">بمعايير عالمية</span>
             </h2>
-            <p className="text-lg text-muted-foreground">
-              نقدم مجموعة متكاملة من الخدمات الطبية لتلبية احتياجاتك واحتياجات أسرتك بأعلى معايير الجودة.
+            <p className="text-xl text-muted-foreground leading-relaxed">
+              نحن هنا لنقدم لك تجربة صحية فريدة تجمع بين الخبرة الطبية العريقة وأحدث التقنيات الرقمية، لتوفير رعاية متكاملة لك ولأحبائك.
             </p>
           </FadeIn>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {services.map((service, index) => (
             <FadeIn key={service.title} delay={index * 0.1}>
-              <motion.div whileHover={{ y: -8 }} transition={{ type: "spring", stiffness: 300 }}>
+              <motion.div
+                whileHover={{ y: -12, scale: 1.02 }}
+                className="group relative h-full rounded-[2.5rem] overflow-hidden bg-card border border-border/10 shadow-lg hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500"
+              >
                 <Link href={service.href}>
-                  <Card className="group h-full overflow-hidden border-0 shadow-sm hover:shadow-2xl transition-all duration-300 bg-card rounded-2xl ring-1 ring-border/50 hover:ring-primary/20">
-                    <div className="relative h-48 overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity" />
-                      <Image
-                        src={service.image}
-                        alt={service.title}
-                        layout="fill"
-                        objectFit="cover"
-                        className="group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className={`absolute top-4 right-4 z-20 p-3 rounded-xl ${service.color} shadow-lg`}>
-                        <service.icon size={24} />
+                  <div className="relative h-64 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 opacity-70 group-hover:opacity-40 transition-opacity duration-700" />
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      className="group-hover:scale-110 transition-transform duration-1000 ease-out"
+                    />
+
+                    {/* Icon Badge Overlay */}
+                    <div className={`absolute top-6 right-6 z-20 p-4 rounded-2xl glass shadow-2xl transition-transform duration-500 group-hover:rotate-12`}>
+                      <service.icon size={28} className="text-primary font-bold" />
+                    </div>
+
+                    {/* Service Name Overlay */}
+                    <div className="absolute bottom-6 right-6 z-20">
+                      <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-primary transition-colors">
+                        {service.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className="p-8 space-y-4">
+                    <p className="text-lg text-muted-foreground/90 leading-relaxed h-20 overflow-hidden line-clamp-3">
+                      {service.description}
+                    </p>
+
+                    <div className="pt-4 flex items-center justify-between border-t border-border/50">
+                      <div className="inline-flex items-center gap-2 text-primary font-bold text-lg group/btn">
+                        <span>احجز موعد الآن</span>
+                        <ArrowLeft size={20} className="mr-2 group-hover/btn:translate-x-[-8px] transition-transform duration-300" />
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                        <ShieldPlus size={18} />
                       </div>
                     </div>
-                    <CardHeader>
-                      <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">
-                        {service.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {service.description}
-                      </p>
-                    </CardContent>
-                    <CardFooter>
-                      <div className="flex items-center text-primary font-medium group-hover:gap-2 transition-all duration-300">
-                        <span>احجز الآن</span>
-                        <ArrowLeft size={16} className="mr-1 group-hover:translate-x-[-4px] transition-transform" />
-                      </div>
-                    </CardFooter>
-                  </Card>
+                  </div>
                 </Link>
+
+                {/* Decorative background glow on hover */}
+                <div className="absolute -inset-1 medical-gradient opacity-0 group-hover:opacity-[0.03] transition-opacity blur-2xl pointer-events-none" />
               </motion.div>
             </FadeIn>
           ))}
         </div>
 
-        <FadeIn delay={0.4} className="mt-16 text-center">
-          <Button asChild size="lg" variant="secondary" className="px-8 rounded-full">
-            <Link href="/services">عرض جميع الخدمات</Link>
+        <FadeIn delay={0.4} className="mt-20 text-center">
+          <Button asChild size="lg" className="rounded-full px-12 py-8 text-xl medical-gradient shadow-xl hover:shadow-primary/30 transition-all hover:scale-105">
+            <Link href="/services" className="flex items-center gap-3">
+              <span>استكشف كافة خدماتنا</span>
+              <ArrowLeft size={20} />
+            </Link>
           </Button>
         </FadeIn>
       </div>
